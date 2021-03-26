@@ -1,8 +1,38 @@
-module.exports = function(app) {
+module.exports = function(app ,swig) {
+
+
+    //el método GET /canciones/agregar tiene que ir antes de /canciones/:id. El
+    // orden en el que escribimos los métodos GET y POST es importante puesto que indican
+    // PRIORIDAD
+    app.get('/canciones/agregar', function (req, res) {
+        let respuesta = swig.renderFile('views/bagregar.html', {
+
+        });
+        res.send(respuesta);
+    })
+
     app.get("/canciones", function(req, res) {
 
-        let respuesta = 'Nombre: ' + req.query.nombre + '<br>'
-            + 'Autor: '+ req.query.autor;
+        let canciones =[
+            {
+                "nombre" : "Suelo Gris",
+                "precio": "1.5"
+            },
+            {
+                "nombre" : "La Inmensidad",
+                "precio": "1.2"
+            },
+            {
+                "nombre" : "PRMVR",
+                "precio": "1.6"
+            }
+
+        ];
+
+        let respuesta = swig.renderFile('views/btienda.html', {
+            vendedor : 'Tienda de canciones',
+            canciones : canciones
+        })
         res.send(respuesta);
     });
 
@@ -30,4 +60,6 @@ module.exports = function(app) {
     app.get('/promo*', function (req, res) {
         res.send('Respuesta patrón promo* ');
     })
+
+
 };
