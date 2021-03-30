@@ -52,7 +52,7 @@ module.exports = function(app ,swig) {
     });
 
     app.post("/cancion", function (req,res){
-        res.send("Canción agragada:"+req.body.nombre + "<br>"
+        res.send("Canción agregada:"+req.body.nombre + "<br>"
             + " genero :" + req.body.genero + "<br>"
             + " precio: "+req.body.precio);
     });
