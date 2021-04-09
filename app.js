@@ -71,6 +71,7 @@ app.use("/publicaciones",routerUsuarioSession);
 
 require("./routes/rusuarios.js")(app,swig, gestorBD);
 require("./routes/rcanciones.js")(app, swig, gestorBD);
+require("./routes/rcomentarios")(app, swig, gestorBD);
 require("./routes/rautores.js")(app, swig);
 
 app.use(express.static('public'));

@@ -33,17 +33,26 @@ module.exports = function(app ,swig, gestorBD) {
 
     app.get('/cancion/:id', function (req, res) {
         let criterio = { "_id" :  gestorBD.mongo.ObjectID(req.params.id)  };
+        let criterioC = { "cancion_id" :  gestorBD.mongo.ObjectID(req.params.id)  };
         gestorBD.obtenerCanciones(criterio,function(canciones){
             if ( canciones == null ){
                 res.send("Error al recuperar la canción.");
             } else {
-                let respuesta = swig.renderFile('views/bcancion.html',
-                    {
-                        cancion : canciones[0]
-                    });
-                res.send(respuesta);
+                gestorBD.obtenerComentarios(criterioC,function(comentarios){
+                    if(comentarios == null){
+                        res.send("Error al recuperar los comentarios.");
+                    } else {
+                        let respuesta = swig.renderFile('views/bcancion.html',
+                            {
+                                cancion : canciones[0],
+                                comentarios : comentarios
+                            });
+                        res.send(respuesta);
+                    }
+                });
             }
         });
+
     });
     app.get('/canciones/:genero/:id', function(req, res) {
         let respuesta = 'id: ' + req.params.id + '<br>'
@@ -153,7 +162,7 @@ module.exports = function(app ,swig, gestorBD) {
     function paso1ModificarPortada(files, id, callback){
         if (files && files.portada != null) {
             let imagen =files.portada;
-            imagen.mv('public/portadas/' + id + '.png', function(err) {
+            imagen.mv('public/portada/' + id + '.png', function(err) {
                 if (err) {
                     callback(null); // ERROR
                 } else {
