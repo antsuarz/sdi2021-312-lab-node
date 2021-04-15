@@ -30,6 +30,10 @@ app.set('db','mongodb://admin:sdi@tiendamusica-shard-00-00.jxgw2.mongodb.net:270
 app.set('clave','abcdefg');
 app.set('crypto',crypto);
 
+app.get('/', function (req, res) {
+    res.redirect('/tienda');
+})
+
 
 app.listen(app.get('port'), function(){
     console.log('Servidor activo');

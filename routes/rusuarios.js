@@ -7,6 +7,7 @@ module.exports = function(app, swig, gestorBD) {
     app.get("/registrarse", function(req, res) {
         let respuesta = swig.renderFile('views/bregistro.html', {});
         res.send(respuesta);
+
     });
 
     app.get("/identificarse", function(req, res) {
@@ -33,7 +34,7 @@ module.exports = function(app, swig, gestorBD) {
                 res.send("No identificado: ");
             } else {
                 req.session.usuario = usuarios[0].email;
-                res.send("identificado");
+                res.redirect("/publicaciones");
             }
 
         });
@@ -50,7 +51,7 @@ module.exports = function(app, swig, gestorBD) {
             if (id == null){
                 res.send("Error al insertar el usuario");
             } else {
-                res.send('Usuario Insertado ' + id);
+                res.redirect("/identificarse");
             }
         });
     });
