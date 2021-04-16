@@ -2,7 +2,11 @@ module.exports = function(app, swig, gestorBD) {
 
     app.post("/comentarios/:cancion_id", function(req, res) {
         if ( req.session.usuario == null){
-            res.send("No puede comentar sin identificarse");
+            let respuesta = swig.renderFile('views/error.html',
+                {
+                    error: "No puedes comentar sin registrarte"
+                });
+            res.send(respuesta);
             return;
         }
 
@@ -13,7 +17,11 @@ module.exports = function(app, swig, gestorBD) {
         }
         gestorBD.insertarComentario(comentario, function(id){
             if (id == null) {
-                res.send("Error al insertar el comentario");
+                let respuesta = swig.renderFile('views/error.html',
+                    {
+                        error: "Error al listar comentario"
+                    });
+                res.send(respuesta);
             } else {
                 res.send("Comentario insertado con id: "+id);
             }

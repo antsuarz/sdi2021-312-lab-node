@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block titulo %} Error: {{error}} {% endblock %}
+
+{% block contenido_principal %}
+
+<div>
+    <h1>Se ha registrado el siguiente error:</h1>
+    <h2>{{error}}</h2>
+    <h3>Ante cuelquier contratiempo, pongase en contacto con el servicio técnico</h3>
+    <a href="/tienda">Volver a la tienda.</a>
+</div>
+{% endblock %}
