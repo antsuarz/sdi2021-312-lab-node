@@ -126,6 +126,7 @@ app.use("/cancion/eliminar",routerUsuarioAutor);
 
 require("./routes/rusuarios.js")(app,swig, gestorBD);
 require("./routes/rcanciones.js")(app, swig, gestorBD);
+require("./routes/rapicanciones.js")(app, gestorBD);
 require("./routes/rcomentarios")(app, swig, gestorBD);
 require("./routes/rautores.js")(app, swig);
 
