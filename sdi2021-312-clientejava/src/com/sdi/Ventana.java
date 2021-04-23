@@ -37,16 +37,8 @@ public class Ventana {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				peticiones++;
-				 ObjectNode respuestaJSON;
-				 respuestaJSON = ClientBuilder.newClient()
-				 .target("http://localhost:3000/memoria")
-				 .request()
-				 .accept(MediaType.APPLICATION_JSON)
-				 .get()
-				 .readEntity(ObjectNode.class);
-
-				 String memoria = respuestaJSON.get("memoria").toString();
-				 textoMemoria.setText("Memoria libre: "+memoria+" ("+peticiones+")");
+				ActualizarMemoriaThread hilo = new ActualizarMemoriaThread(Ventana.this);
+				hilo.start();
 
 			}
 		});
@@ -68,5 +60,13 @@ public class Ventana {
 // Propiedades visibilidad frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+
+	public void actualizarMemoria(String memoria) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				textoMemoria.setText("Memoria libre: " + memoria + " (" + peticiones + ")");
+			}
+		});
 	}
 }
