@@ -6,7 +6,7 @@
         <thead>
         <tr>
             <th><a onclick="ordenarPorNombre()">Nombre</a></th>
-            <th>Genero</th>
+            <th><a onclick="ordenarPorGenero()">Genero</a></th>
             <th><a onclick="ordenarPorPrecio()">Precio</a></th>
             <th class="col-md-1"></th>
         </tr>
@@ -106,7 +106,7 @@
         }
         actualizarTabla(cancionesFiltradas);
     });
-
+    precioDsc = true;
     function ordenarPorPrecio(){
         if (precioDsc){
             canciones.sort(function(a, b) {
@@ -120,13 +120,48 @@
         actualizarTabla(canciones);
         precioDsc = !precioDsc; //invertir
     }
+    nombreDsc = true
     function ordenarPorNombre(){
-        canciones.sort(function(a, b) {
-            if(a.nombre > b.nombre ) return 1;
-            if(a.nombre < b.nombre ) return -1;
-            return 0;
-        });
+        if(nombreDsc){
+            canciones.sort(function(a, b) {
+                //toLowerCase() porque el programa asume que, por ejemplo, una C mayuscula esta por encima de una A minuscula
+                if(a.nombre.toLowerCase() > b.nombre.toLowerCase() ) return 1;
+                if(a.nombre.toLowerCase() < b.nombre.toLowerCase() ) return -1;
+                return 0;
+            });
+        }
+        else{
+            canciones.sort(function(a, b) {
+                //toLowerCase() porque el programa asume que, por ejemplo, una C mayuscula esta por encima de una A minuscula
+                if(a.nombre.toLowerCase() > b.nombre.toLowerCase() ) return -1;
+                if(a.nombre.toLowerCase() < b.nombre.toLowerCase() ) return 1;
+                return 0;
+            });
+        }
         actualizarTabla(canciones);
+        nombreDsc = !nombreDsc;
+    }
+
+    genDsc = true;
+    function ordenarPorGenero(){
+        if(genDsc) {
+            canciones.sort(function (a, b) {
+                //toLowerCase() porque el programa asume que, por ejemplo, una C mayuscula esta por encima de una A minuscula
+                if (a.genero.toLowerCase() > b.genero.toLowerCase()) return 1;
+                if (a.genero.toLowerCase() < b.genero.toLowerCase()) return -1;
+                return 0;
+            });
+        }
+        else{
+            canciones.sort(function (a, b) {
+                //toLowerCase() porque el programa asume que, por ejemplo, una C mayuscula esta por encima de una A minuscula
+                if (a.genero.toLowerCase() > b.genero.toLowerCase()) return -1;
+                if (a.genero.toLowerCase() < b.genero.toLowerCase()) return 1;
+                return 0;
+            });
+        }
+        actualizarTabla(canciones);
+        genDsc = !genDsc;
     }
 
 
